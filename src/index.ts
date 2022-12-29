@@ -1,6 +1,5 @@
 import fastify from 'fastify';
 import { PrismaClient } from '@prisma/client';
-import { fastifyAutoload as autoload } from "@fastify/autoload"
 import path from 'path';
 
 const prisma = new PrismaClient();
