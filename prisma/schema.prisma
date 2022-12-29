@@ -8,18 +8,18 @@ datasource db {
 }
 
 model tasks {
-  user         String?  @db.Uuid
-  title        String?  @default("") @db.VarChar
-  content      String?
-  added_at     BigInt?
-  completed    Boolean? @default(false)
-  completed_at BigInt?
-  id           BigInt   @id
+  taskIdentifier String    @id @db.VarChar
+  taskTitle      String?
+  taskContent    String?
+  taskAuthor     String?   @db.VarChar
+  isCompleted    Boolean?  @default(false)
+  completedAt    DateTime? @db.Timestamp(6)
+  createdAt      DateTime? @default(now()) @db.Timestamp(6)
 }
 
 model users {
-  id             BigInt @id @default(autoincrement())
-  userIdentifier String @default("") @db.VarChar
-  userSecret     String @default("")
-  userName       String @default("") @db.VarChar
+  userIdentifier String    @id @db.Uuid
+  userSecret     String?   @db.VarChar
+  userName       String?   @db.VarChar
+  createdAt      DateTime? @default(now()) @db.Timestamp(6)
 }
