@@ -3,6 +3,7 @@ export const app = fastify();
 
 async function server() {
   import("./routes/users.routes");
+  import("./routes/tasks.routes");
 
   try {
     await app.listen({ port: 3000 }).then(() => {
