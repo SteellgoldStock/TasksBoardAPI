@@ -1,14 +1,14 @@
-import { RouteOptions } from 'fastify/types/route';
-import { app } from '..';
-import prisma, { patch } from '../utils/prisma';
+import { RouteOptions } from "fastify/types/route";
+import { app } from "..";
+import prisma, { patch } from "../utils/prisma";
 
 /** GET ALL USERS */
 app.route({
-  method: 'GET',
-  url: '/users/:secret_key',
-  handler: async (request: any, reply) => {
-    if (request.params.secret_key !== process.env.SECRET_TOKEN) {
-      reply.code(401).send({ message: 'Unauthorized' });
+  method: "GET",
+  url: "/users/:secretKey",
+  handler: async(request: any, reply: any) => {
+    if (request.params.secretKey !== process.env.SECRET_TOKEN) {
+      reply.code(401).send({ message: "Unauthorized" });
       return;
     }
 
@@ -19,21 +19,23 @@ app.route({
 
 /** GET A USER BY USER_IDENTIFIER */
 app.route({
-  method: 'GET',
-  url: '/users/:user_identifier/:secret_key',
-  handler: async (request: any, reply) => {
-    console.log(request.params.user_identifier);
-    console.log(request.params.secret_key);
+  method: "GET",
+  url: "/users/:userIdentifier/:secretKey",
+  handler: async(request: any, reply: any) => {
 
-    if (request.params.secret_key !== process.env.SECRET_TOKEN) {
-      reply.code(401).send({ message: 'Unauthorized' });
+    if (request.params.secretKey !== process.env.SECRET_TOKEN) {
+      reply.code(401).send({ message: "Unauthorized" });
       return;
     }
 
-    const user = await prisma.users.findMany({ where: { user_identifier: String(request.params.user_identifier) } });
+    const user = await prisma.users.findMany({
+      where: {
+        userIdentifier: String(request.params.userIdentifier)
+      }
+    });
 
     if (user == null) {
-      reply.code(404).send({ message: 'User not found' });
+      reply.code(404).send({ message: "User not found" });
       return;
     }
 
@@ -43,11 +45,11 @@ app.route({
 
 /** CREATE A NEW USER */
 app.route({
-  method: 'POST',
-  url: '/users/create/:secret_key',
-  handler: async (request: any, reply) => {
-    if (request.params.secret_key !== process.env.SECRET_TOKEN) {
-      reply.code(401).send({ message: 'Unauthorized' });
+  method: "POST",
+  url: "/users/create/:secretKey",
+  handler: async(request: any, reply: any) => {
+    if (request.params.secretKey !== process.env.SECRET_TOKEN) {
+      reply.code(401).send({ message: "Unauthorized" });
       return;
     }
 
