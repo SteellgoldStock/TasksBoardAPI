@@ -1,5 +1,4 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { RouteOptions } from "fastify/types/route";
 import { app } from "..";
 import prisma, { patch } from "../utils/prisma";
 import { checkEnvKey } from "../utils/Validator";
@@ -19,7 +18,7 @@ app.route({
     const tasks = await prisma.tasks.findMany();
     reply.send(patch(tasks));
   }
-} as RouteOptions);
+});
 
 /** GET ALL TASKS OF A USER */
 app.route({
@@ -36,4 +35,4 @@ app.route({
 
     reply.send(patch(tasks));
   }
-} as RouteOptions);
+});
