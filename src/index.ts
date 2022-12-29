@@ -1,19 +1,15 @@
 import fastify from 'fastify';
-import { PrismaClient } from '@prisma/client';
-import path from 'path';
+export const app = fastify();
 
-const prisma = new PrismaClient();
-const app = fastify();
+async function server() {
+  import('./routes/users.routes');
 
-app.get('/', async (request, reply) => {
-  const allUsers = await prisma.users.findMany();
-  
-  return JSON.parse(JSON.stringify(allUsers, (_, value) => typeof value === "bigint"
-    ? value.toString()
-    : value
-  ));
-});
+  try {
+    await app.listen({ port: 3000 }).then(() => { console.log(`Server listening on 127.0.0.1:3000`); });
+  } catch (err) {
+    app.log.error(err);
+    process.exit(1);
+  }
+}
 
-app.listen({
-  port: 3000
-}).then(() => console.log('Server is running on http://localhost:3000'));
+server();
