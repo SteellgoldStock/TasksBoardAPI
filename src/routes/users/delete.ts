@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { app } from "../../..";
-import { Types } from "../../../types/Types";
-import prisma, { patch } from "../../../utils/prisma";
+import { app } from "../..";
+import { Types } from "../../types/Types";
+import prisma, { patch } from "../../utils/prisma";
 
 app.delete("/users/:userIdentifier/delete", {
   handler: async(request: FastifyRequest<{ Params: Types["Params"] }>, reply: FastifyReply) => {
