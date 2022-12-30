@@ -10,6 +10,7 @@ async function server() {
   import("./routes/users/delete");
 
   import("./routes/tasks/get");
+  import("./routes/tasks/post");
 
   app.addHook("preHandler", async(request: FastifyRequest<{ Params: Types["Params"] }>, reply: FastifyReply) => {
     const secretToken = request.headers.authorization?.split(" ")[1];
