@@ -13,8 +13,6 @@ app.route({
   method: "GET",
   url: "/tasks/all/:secretKey",
   handler: async(request: FastifyRequest<{ Params: Params }>, reply: FastifyReply) => {
-    checkEnvKey(request.params.secretKey, reply);
-
     const tasks = await prisma.tasks.findMany();
     reply.send(patch(tasks));
   }
@@ -25,8 +23,6 @@ app.route({
   method: "GET",
   url: "/tasks/:userIdentifier/:secretKey",
   handler: async(request: FastifyRequest<{ Params: Params }>, reply: FastifyReply) => {
-    checkEnvKey(request.params.secretKey, reply);
-
     const tasks = await prisma.tasks.findMany({
       where: {
         taskAuthor: String(request.params.userIdentifier)

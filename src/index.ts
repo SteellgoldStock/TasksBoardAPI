@@ -1,4 +1,4 @@
-import fastify from "fastify";
+import fastify, { FastifyReply, FastifyRequest } from "fastify";
 export const app = fastify();
 
 async function server() {
@@ -8,12 +8,14 @@ async function server() {
   import("./routes/users/(update)/put");
   import("./routes/users/(delete)/delete");
 
-  // TODO: Check if in super-routes token given is valid (corresponds to secretKey in .env)
-  // app.addHook("preHandler", async(request, reply) => {
-  //   if (request.url.startsWith("/tasks/")) {
-  //     console.log("preHandler");
-  //   }
-  // });
+  app.addHook("preHandler", async(request: FastifyRequest, reply: FastifyReply) => {
+    if (request.url.startsWith("/users")) {
+      if (request.headers.authorization?.split(" ")[1] !== process.env.SECRET_TOKEN) {
+        reply.code(401).send({ message: "Unauthorized" });
+        return;
+      }
+    }
+  });
 
   try {
     await app.listen({ port: 3000 }).then(() => {
