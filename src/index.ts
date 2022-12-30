@@ -12,20 +12,16 @@ async function server() {
   import("./routes/tasks/get");
   import("./routes/tasks/post");
 
-  app.addHook("preHandler", async(request: FastifyRequest<{ Params: Types["Params"] }>, reply: FastifyReply) => {
+  app.addHook("preHandler", async(request: FastifyRequest<{ Params: Types["TaskParams"] }>, reply: FastifyReply) => {
     const secretToken = request.headers.authorization?.split(" ")[1];
 
     if (request.url.startsWith("/users")) {
-      if (secretToken !== process.env.SECRET_TOKEN) {
-        return reply.code(401).send({ message: "Unauthorized" });
-      }
+      if (secretToken !== process.env.SECRET_TOKEN) return reply.code(401).send({ message: "Unauthorized" });
     } else if (request.url.startsWith("/tasks")) {
       const user = await prisma.users.findMany({ where: { userIdentifier: String(request.params.userIdentifier) } });
       if (!user[0]) return reply.code(404).send({ message: "User not found" });
 
-      if (user[0].userSecret !== secretToken) {
-        return reply.code(401).send({ message: "Unauthorized" });
-      }
+      if (user[0].userSecret !== secretToken) return reply.code(401).send({ message: "Unauthorized" });
     }
   });
 

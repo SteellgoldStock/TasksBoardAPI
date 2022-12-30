@@ -1,15 +1,31 @@
-type Params = {
+type UsersParams = {
   userIdentifier: string;
-  secretKey: string;
 }
 
-type Body = {
+type TasksParams = {
+  userIdentifier: string;
+  taskIdentifier: string;
+}
+
+type UsersBody = {
   userIdentifier: string;
   userSecret: string;
   userName: string;
 }
 
+type TasksBody = {
+  taskIdentifier: string;
+  taskAuthor: string;
+  taskTitle: string;
+  taskContent: string;
+  isCompleted: boolean;
+  completedAt: string | null;
+  createdAt: string | null;
+}
+
 export type Types = {
-  Params: Params;
-  Body: Body;
+  UserParams: UsersParams;
+  TaskParams: TasksParams;
+  UserBody: UsersBody;
+  TaskBody: TasksBody;
 }

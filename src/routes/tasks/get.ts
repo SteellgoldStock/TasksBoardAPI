@@ -4,7 +4,7 @@ import { Types } from "../../types/Types";
 import prisma, { patch } from "../../utils/prisma";
 
 app.get("/tasks/:userIdentifier", {
-  handler: async(request: FastifyRequest<{ Params: Types["Params"] }>, reply: FastifyReply) => {
+  handler: async(request: FastifyRequest<{ Params: Types["TaskParams"] }>, reply: FastifyReply) => {
     const tasks = await prisma.tasks.findMany({
       where: {
         taskAuthor: String(request.params.userIdentifier)
