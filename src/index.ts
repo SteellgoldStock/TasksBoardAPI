@@ -3,7 +3,6 @@ export const app = fastify();
 
 async function server() {
   import("./routes/users/get");
-  import("./routes/users/tasks/get");
   import("./routes/users/post");
   import("./routes/users/put");
   import("./routes/users/delete");
