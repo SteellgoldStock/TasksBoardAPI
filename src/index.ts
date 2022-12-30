@@ -8,6 +8,8 @@ async function server() {
   import("./routes/users/put");
   import("./routes/users/delete");
 
+  import("./routes/tasks/get");
+
   app.addHook("preHandler", async(request: FastifyRequest, reply: FastifyReply) => {
     if (request.url.startsWith("/users")) {
       if (request.headers.authorization?.split(" ")[1] !== process.env.SECRET_TOKEN) {
