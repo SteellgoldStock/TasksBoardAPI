@@ -1,6 +1,7 @@
 import fastify, { FastifyReply, FastifyRequest } from "fastify";
 import { Types } from "./types/Types";
 import prisma from "./utils/prisma";
+import jwt from "jsonwebtoken";
 export const app = fastify();
 
 async function server() {
