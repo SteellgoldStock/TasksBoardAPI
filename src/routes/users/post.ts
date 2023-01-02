@@ -7,7 +7,7 @@ import z from "zod";
 app.post("/users/create", {
   handler: async(request: FastifyRequest<{ Params: Types["UserParams"], Body: Types["UserBody"] }>, reply: FastifyReply) => {
     const bodySchema = z.object({
-      userIdentifier: z.string().min(32).max(32),
+      userIdentifier: z.string().min(36).max(36),
       userSecret: z.string().min(25).max(25),
       userName: z.string().min(5).max(25)
     }).safeParse(request.body);

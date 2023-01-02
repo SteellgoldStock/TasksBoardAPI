@@ -27,8 +27,8 @@ async function server() {
   });
 
   try {
-    await app.listen({ port: 3000 }).then(() => {
-      console.log("Server listening on 127.0.0.1:3000");
+    await app.listen({ port: 3000, host: "0.0.0.0" }).then(() => {
+      console.log("Server listening on 0.0.0.0:3000");
     });
   } catch (err) {
     app.log.error(err);
