@@ -4,7 +4,7 @@ import { Types } from "../../types/Types";
 import prisma, { patch } from "../../utils/prisma";
 import z from "zod";
 
-app.post("/tasks/create/:userIdentifier", {
+app.post("/tasks/create", {
   handler: async(request: FastifyRequest<{ Params: Types["TaskParams"], Body: Types["TaskBody"] }>, reply: FastifyReply) => {
     const bodySchema = z.object({
       taskIdentifier: z.string().max(36).min(36),
